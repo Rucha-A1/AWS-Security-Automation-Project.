@@ -2,12 +2,12 @@ import boto3
 from botocore.exceptions import ClientError
 
 def fix_public_buckets():
-    # 1. Connect to the S3 Service
-    s3 = boto3.client('s3')
+   
+    s3 = boto3.client('s3')                                                     # 1. Connect to the S3 Service
     
     try:
-        # 2. Ask AWS for all your buckets
-        response = s3.list_buckets()
+       
+        response = s3.list_buckets()                                             # 2. Ask AWS for all your buckets
         
         print(f"Checking {len(response['Buckets'])} buckets...\n")
 
@@ -15,9 +15,9 @@ def fix_public_buckets():
             name = bucket['Name']
             print(f"Inspecting bucket: {name}")
 
-            # 3. Apply the 'Block Public Access' settings
-            # This is the "Self-Healing" part.
-            try:
+           
+            try:                                                                   # 3. Apply the 'Block Public Access' settings
+                                                                                   # This is the "Self-Healing" part.
                 s3.put_public_access_block(
                     Bucket=name,
                     PublicAccessBlockConfiguration={
